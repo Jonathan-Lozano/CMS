@@ -1,0 +1,8 @@
+img {
+    width: 100% !important;
+}
+
+.carousel-caption{
+    background: black;
+    opacity: 0.5;
+}
