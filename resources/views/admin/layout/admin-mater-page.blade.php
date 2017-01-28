@@ -13,7 +13,7 @@
     <!-- Styles -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="fonts/glyphicons-halflings-regular.svg">
+    <link rel="stylesheet" href="{{ asset('fonts/glyphicons-halflings-regular.svg') }}">
 
     {{--@yield('extrastyle')--}}
 

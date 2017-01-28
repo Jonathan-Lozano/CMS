@@ -15,7 +15,7 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        $proveedores = Proveedor::all();
+        $proveedores = Proveedor::paginate(5);
         return view('admin.admin-proveedores', compact('proveedores'));
     }
 
@@ -62,7 +62,8 @@ class ProveedorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $proveedor = Proveedor::findOrFail($id);
+        return $proveedor;
     }
 
     /**
@@ -72,9 +73,12 @@ class ProveedorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $proveedor = Proveedor::findOrFail($request->id);
+        $proveedor->fill($request->all());
+        $proveedor->save();
+        return redirect()->to(route('proveedor.index'));
     }
 
     /**

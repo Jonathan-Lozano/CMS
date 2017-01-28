@@ -63,6 +63,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin'], 'namespace
         'as'    => 'proveedor.store'
     ]);
 
+    Route::post('/proveedor/update', [
+        'uses'  => 'ProveedorController@update',
+        'as'    => 'proveedor.update'
+    ]);
+
+    Route::get('/proveedor/edit/{id}', [
+        'uses'  => 'ProveedorController@edit',
+        'as'    => 'proveedor.edit'
+    ]);
+
     Route::get('/proveedor/delete/{id}', [
         'uses'  => 'ProveedorController@destroy',
         'as'    => 'proveedor.delete'

@@ -21,7 +21,7 @@
                     <th>Opciones</th>
                 </tr>
                 @forelse($proveedores as $proveedor)
-                    <tr data-proveedor="{{ $proveedor->id }}">
+                    <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $proveedor->nombre }}</td>
                         <td>{{ $proveedor->empresa }}</td>
@@ -31,7 +31,7 @@
                         </td>
                         <td>
                             <div class="btn-group">
-                                <a href="#" class="btn btn-info" role="button">Editar</a>
+                                <a href="#" data-proveedor="{{ route('proveedor.edit', $proveedor->id) }}" class="btn btn-info btn-edit" data-toggle="modal" data-target="#modalEdit">Editar</a>
                                 <a href="{{ route('proveedor.delete', $proveedor) }}" class="btn btn-danger" role="button">Eliminar</a>
                             </div>
                         </td>
@@ -42,6 +42,8 @@
                     </tr>
                 @endforelse
             </table>
+
+            {{ $proveedores->links() }}
         </div>
     </div>
 
@@ -98,24 +100,25 @@
                 <div class="modal-body">
 
                     {{ Form::open(['route' => 'proveedor.update', 'method' => 'POST']) }}
+                    {{ Form::hidden('id', null, ['id' => 'idUp']) }}
                     <div class="form-group">
                         {{ Form::label('nombre', 'Nombre') }}
-                        {{ Form::text('nombre', null,['id' => 'nombre', 'class' => 'form-control']) }}
+                        {{ Form::text('nombre', null,['id' => 'nombreUp', 'class' => 'form-control']) }}
                     </div>
 
                     <div class="form-group">
                         {{ Form::label('empresa', 'Epresa') }}
-                        {{ Form::text('empresa', null,['id' => 'empresa', 'class' => 'form-control']) }}
+                        {{ Form::text('empresa', null,['id' => 'empresaUp', 'class' => 'form-control']) }}
                     </div>
 
                     <div class="form-group">
                         {{ Form::label('email_contact', 'Email contacto') }}
-                        {{ Form::text('email_contact', null,['id' => 'email_contact', 'class' => 'form-control']) }}
+                        {{ Form::text('email_contact', null,['id' => 'email_contactUp', 'class' => 'form-control']) }}
                     </div>
 
                     <div class="form-group">
                         {{ Form::label('tel_contact', 'Telefono contact') }}
-                        {{ Form::text('tel_contact', null,['id' => 'tel_contact', 'class' => 'form-control']) }}
+                        {{ Form::text('tel_contact', null,['id' => 'tel_contactUp', 'class' => 'form-control']) }}
                     </div>
 
                     <div class="modal-footer">
@@ -130,3 +133,6 @@
     </div>
 
 @endsection
+@section('extraScript')
+    <script type="text/javascript" src="{{ asset('js/admin-proveedor.js') }}"></script>
+@show
