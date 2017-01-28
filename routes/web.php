@@ -40,7 +40,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin'], 'namespace
         'as'    => 'slider.edit'
     ]);
 
-    Route::post('/slider/update/{id}',[
+    Route::post('/slider/update',[
         'uses'   => 'SliderController@update',
         'as'    => 'slider.update'
     ]);
@@ -56,6 +56,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin'], 'namespace
     Route::get('/proveedor', [
         'uses'  => 'ProveedorController@index',
         'as'    => 'proveedor.index'
+    ]);
+
+    Route::post('/proveedor/create', [
+        'uses'  => 'ProveedorController@store',
+        'as'    => 'proveedor.store'
+    ]);
+
+    Route::get('/proveedor/delete/{id}', [
+        'uses'  => 'ProveedorController@destroy',
+        'as'    => 'proveedor.delete'
     ]);
 
     /**

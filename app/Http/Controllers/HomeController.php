@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $sliders = Slider::select('*')->get();
+        $sliders = Slider::all();
         return view('welcome', compact('sliders'));
     }
 }

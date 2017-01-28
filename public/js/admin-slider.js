@@ -9,15 +9,16 @@
         },
 
         editSlider: function(){
-
             $('.btn-editSlider').click(function () {
-                var url = $(this).data('slider');
-                //alert(url.substring(url.indexOf('=')+1));
+
+                var id = $(this).data('slider');
+                var form = $('#editSlid');
+                var url = form.attr('action').replace('ID', id);
 
                 $.get(url, function (result) {
-                    //$('#idU').val(result.id);
-                    //$('#nombreSU').val(result.nombre);
-                    //$('#descripcionSU').val(result.descripcion);
+                    $('#idUp').val(result.id);
+                    $('#nombreSU').val(result.nombre);
+                    $('#descripcionSU').val(result.descripcion);
                 }).fail(function () {
                     alert("Ocurrío un problema. Intentalo de nuevo");
                 });

@@ -2,6 +2,7 @@
 @include('layouts.style')
 @section('content')
     <div class="container">
+
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             @if($sliders)
@@ -44,5 +45,51 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
+
+
+        <div class="row" style="margin-top: 15px;">
+
+            <div class="col-md-8">
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row" style="padding: 10px;">
+
+                            @for($i = 0; $i <= 8; $i++)
+                                <div class="col-sm-6 col-md-4">
+                                    <div class="thumbnail" style="border: 1px solid;">
+                                        {{ Html::image('/media/img4.jpg', "Imagen no encontrada", ['title' => 'Imagen', 'style' => 'border: 1px solid;']) }}
+                                        <div class="caption" style="border: 1px solid;">
+                                            <h3>Titulo</h3>
+                                            <p>Descripcion</p>
+                                            <div class="btn-group">
+                                                <a class="btn btn-info btn-editSlider" data-toggle="modal" data-target="#modalEdit">Editar</a>
+                                                <a class="btn btn-danger" role="button">Eliminar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endfor
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row" style="padding: 10px;">
+
+                            <p>Panel izquierdo donde se mostraran las categorias, ofertas, etc</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 @endsection

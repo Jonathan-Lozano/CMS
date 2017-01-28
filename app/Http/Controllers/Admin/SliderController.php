@@ -71,7 +71,7 @@ class SliderController extends Controller
      */
     public function edit($id)
     {
-        $slider = Slider::select('*')->first();
+        $slider = Slider::select('*')->where('id', $id)->first();
         return $slider;
     }
 
@@ -82,7 +82,7 @@ class SliderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $slider = Slider::findOrFail($request->id);
         $file_route = $slider->img;

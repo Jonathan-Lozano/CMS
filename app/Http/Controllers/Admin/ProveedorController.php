@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Proveedor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,7 +15,8 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        return view('admin.admin-proveedores');
+        $proveedores = Proveedor::all();
+        return view('admin.admin-proveedores', compact('proveedores'));
     }
 
     /**
@@ -35,7 +37,10 @@ class ProveedorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $proveedor = new Proveedor();
+        $proveedor->fill($request->all());
+        $proveedor->save();
+        return redirect()->to(route('proveedor.index'));
     }
 
     /**
@@ -80,6 +85,9 @@ class ProveedorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $proveedor = Proveedor::findOrFail($id);
+        $proveedor->delete();
+
+        return redirect()->to(route('proveedor.index'));
     }
 }
