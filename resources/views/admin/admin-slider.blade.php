@@ -11,29 +11,25 @@
 
     <div class="container">
 
-        @if($sliders)
-            <div class="row">
-            @foreach($sliders as $slider)
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail" style="border: 1px solid;">
-                        {{ Html::image('/media/img-slider/'.$slider->img, "Imagen no encontrada", ['title' => $slider->nombre, 'style' => 'border: 1px solid;']) }}
-                        <div class="caption" style="border: 1px solid;">
-                            <h3>{{ $slider->nombre }}</h3>
-                            <p>{{ $slider->descripcion }}</p>
-                            <div class="btn-group">
-                                <a href="#" data-slider="{{ $slider->id }}" class="btn btn-info btn-editSlider" data-toggle="modal" data-target="#modalEdit">Editar</a>
-                                <a href="{{ route('slider.destroy', $slider->id) }}" class="btn btn-danger">Eliminar</a>
+        <div class="row">
+            @forelse($sliders as $slider)
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail" style="border: 1px solid;">
+                            {{ Html::image('/media/img-slider/'.$slider->img, "Imagen no encontrada", ['title' => $slider->nombre, 'style' => 'border: 1px solid;']) }}
+                            <div class="caption" style="border: 1px solid;">
+                                <h3>{{ $slider->nombre }}</h3>
+                                <p>{{ $slider->descripcion }}</p>
+                                <div class="btn-group">
+                                    <a href="#" data-slider="{{ $slider->id }}" class="btn btn-info btn-editSlider" data-toggle="modal" data-target="#modalEdit">Editar</a>
+                                    <a href="{{ route('slider.destroy', $slider->id) }}" class="btn btn-danger">Eliminar</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
-            </div>
-        @else
-            <div class="row">
+            @empty
                 <h1>No hay imagenes de muestra</h1>
-            </div>
-        @endif
+            @endforelse
+        </div>
 
     </div>
 
@@ -72,6 +68,7 @@
             </div>
         </div>
     </div>
+
     <div class="modal fade" tabindex="-1" role="dialog" id="modalEdit">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">

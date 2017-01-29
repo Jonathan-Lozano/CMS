@@ -13,7 +13,6 @@
             $(".btn-edit").click(function () {
 
                 var url = $(this).data('proveedor');
-                alert(url);
 
                 $.get(url, function (result) {
                     $("#idUp").val(result.id);

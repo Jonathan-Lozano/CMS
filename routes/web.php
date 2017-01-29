@@ -86,6 +86,26 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin'], 'namespace
         'as'    => 'producto.index'
     ]);
 
+    Route::post('/producto/create', [
+        'uses'  => 'ProductoController@store',
+        'as'    => 'producto.store'
+    ]);
+
+    Route::post('/producto/update', [
+        'uses'  => 'ProductoController@update',
+        'as'    => 'producto.update'
+    ]);
+
+    Route::get('/producto/edit/{id}', [
+        'uses'  => 'ProductoController@edit',
+        'as'    => 'producto.edit'
+    ]);
+
+    Route::get('/producto/delete/{id}', [
+        'uses'  => 'ProductoController@destroy',
+        'as'    => 'producto.delete'
+    ]);
+
     /**
      * Rutas de administracion de administradores
      */

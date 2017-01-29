@@ -48,6 +48,11 @@ return [
             'root' => public_path('media/img-slider'),
         ],
 
+        'img-producto' => [
+            'driver' => 'local',
+            'root' => public_path('media/img-producto'),
+        ],
+
 
         'local' => [
             'driver' => 'local',

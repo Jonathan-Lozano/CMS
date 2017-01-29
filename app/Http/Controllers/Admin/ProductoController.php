@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Producto;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class ProductoController extends Controller
 {
@@ -14,7 +16,8 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        return view('admin.admin-productos');
+        $productos = Producto::all();
+        return view('admin.admin-productos', compact('productos'));
     }
 
     /**
@@ -35,7 +38,17 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $producto = new Producto();
+        $producto->fill($request->all());
+
+        $img = $request->file('img');
+        $file_route = $request->nombre.'_'.$img->getClientOriginalName();
+        Storage::disk('img-producto')->put($file_route, \File::get($img));
+
+        $producto->img = $file_route;
+        $producto->save();
+
+        return redirect()->to(route('producto.index'));
     }
 
     /**
