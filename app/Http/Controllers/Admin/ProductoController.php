@@ -16,7 +16,7 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos = Producto::all();
+        $productos = Producto::paginate(5);
         return view('admin.admin-productos', compact('productos'));
     }
 
@@ -70,7 +70,8 @@ class ProductoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $producto = Producto::findOrFail($id);
+        return $producto;
     }
 
     /**
@@ -80,9 +81,22 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $producto = Producto::findOrFail($request->id);
+        $file_route = $producto->img;
+        if($request->img != null){
+            $img = $request->file('img');
+            $file_route = $request->nombre.'_'.$img->getClientOriginalName();
+            Storage::disk('img-producto')->delete($producto->img);
+            Storage::disk('img-producto')->put($file_route, \File::get($img));
+        }
+        $producto->fill($request->all());
+        $producto->img = $file_route;
+
+        $producto->save();
+        return redirect()->to(route('producto.index'));
+
     }
 
     /**
@@ -93,6 +107,9 @@ class ProductoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $producto = Producto::findOrFail($id);
+        Storage::disk('img-producto')->delete($producto->img);
+        $producto->delete();
+        return redirect()->to(route('producto.index'));
     }
 }

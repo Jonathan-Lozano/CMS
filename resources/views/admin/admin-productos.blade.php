@@ -21,25 +21,33 @@
                     <th>Especificaciones</th>
                     <th>Opciones</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>
-                        <div class="btn-group">
-                            <a href="#" class="btn btn-info" role="button">Editar</a>
-                            <a href="#" class="btn btn-danger" role="button">Eliminar</a>
-                        </div>
-                    </td>
-                </tr>
+                    @forelse($productos as $producto)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ Html::image('/media/img-producto/'.$producto->img, "Imagen no encontrada", ['title' => $producto->nombre, 'class' => 'img-rounded img-responsive', 'style' => 'height: 85px; width: 64px;']) }}</td>
+                            <td>{{ $producto->nombre }}</td>
+                            <td>{{ $producto->descripcion }}</td>
+                            <td>
+                                <p>Cantidad: <span>{{ $producto->cantidad }}</span></p>
+                                <p>Precio: $<span>{{ $producto->precio }}</span></p>
+                                <p>Disponible: <span>{{ $producto->disponible }}</span></p>
+                                <p>Oferta: <span>{{ $oferta = $producto->oferta != null ? $producto->oferta : 'No hay ofertas.' }}</span></p>
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="#" data-producto="{{ route('producto.edit', $producto->id) }}" class="btn btn-info btn-editProducto" role="button" data-toggle="modal" data-target="#modalEdit">Editar</a>
+                                    <a href="{{ route('producto.delete', $producto->id) }}" class="btn btn-danger" role="button">Eliminar</a>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6">No hay productos</td>
+                        </tr>
+                    @endforelse
             </table>
+            {{ $productos->links() }}
         </div>
-
-        @foreach($productos as $producto)
-            {{ Html::image('/media/img-producto/'.$producto->img, "Imagen no encontrada", ['title' => $producto->nombre, 'style' => 'border: 1px solid;']) }}
-        @endforeach
     </div>
 
 
@@ -86,7 +94,7 @@
 
                     <div class="form-group">
                         {{ Form::label('disponible', 'Disponible') }}
-                        {{ Form::select('disponible', ['Si' => 'SI', 'NO' => 'No'], null, ['id' => 'cantidad', 'class' => 'form-control', 'placeholder' => 'Selecciona una opción']) }}
+                        {{ Form::select('disponible', ['SI' => 'Si', 'NO' => 'No'], 'Si', ['id' => 'cantidad', 'class' => 'form-control']) }}
                     </div>
 
                     <div class="form-group">
@@ -114,7 +122,7 @@
                 </div>
                 <div class="modal-body">
 
-                    {{ Form::open(['route' => 'producto.update', 'method' => 'POST']) }}
+                    {{ Form::open(['route' => 'producto.update', 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
                     {{ Form::hidden('id', null, ['id' => 'idUp']) }}
                     <div class="form-group">
                         {{ Form::label('nombre', 'Nombre') }}
@@ -148,7 +156,7 @@
 
                     <div class="form-group">
                         {{ Form::label('disponible', 'Disponible') }}
-                        {{ Form::select('disponible', ['Si' => 'SI', 'NO' => 'No'], null, ['id' => 'disponibleUp', 'class' => 'form-control', 'placeholder' => 'Selecciona una opción']) }}
+                        {{ Form::select('disponible', ['SI' => 'Si', 'NO' => 'No'], 'Si', ['id' => 'disponibleUp', 'class' => 'form-control']) }}
                     </div>
 
                     <div class="form-group">
@@ -168,3 +176,6 @@
     </div>
 
 @endsection
+@section('extraScript')
+    <script type="text/javascript" src="{{ asset('js/admin-producto.js') }}"></script>
+@show

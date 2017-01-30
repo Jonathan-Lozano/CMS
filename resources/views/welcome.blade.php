@@ -85,22 +85,32 @@
 
                         <div class="row" style="padding: 10px;">
 
-                            @for($i = 0; $i <= 8; $i++)
-                                <div class="col-sm-6 col-md-4">
-                                    <div class="thumbnail" style="border: 1px solid;">
-                                        {{ Html::image('/media/img4.jpg', "Imagen no encontrada", ['title' => 'Imagen', 'style' => 'border: 1px solid;']) }}
-                                        <div class="caption" style="border: 1px solid;">
-                                            <h3>Titulo</h3>
-                                            <p>Descripcion</p>
-                                            <div class="btn-group">
-                                                <a class="btn btn-info btn-editSlider" data-toggle="modal" data-target="#modalEdit">Editar</a>
-                                                <a class="btn btn-danger" role="button">Eliminar</a>
-                                            </div>
+                            @forelse($productos as $producto)
+                            <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail" style="border: 1px solid;">
+                                    {{ Html::image('/media/img-producto/' .$producto->img, "Imagen no encontrada", ['title' => $producto->nombre, 'style' => 'border: 1px solid; height: 210px; width: 100%;']) }}
+                                    <div class="caption" style="border: 1px solid;">
+                                        <h4>{{ $producto->nombre }}</h4>
+                                        <p>
+                                            <ul>
+                                                <li>Precio: ${{ $producto->precio }}</li>
+                                                <li>Categoria: {{ $producto->categoria }}</li>
+                                                <li>Cantidad: {{ $producto->cantidad }}</li>
+                                            </ul>
+                                        </p>
+                                        <hr/>
+                                        <div class="btn-group">
+                                            <a class="btn btn-default btn-editSlider" data-toggle="modal" data-target="#modalEdit">Ver</a>
+                                            <a class="btn btn-info" role="button">Favoritos</a>
                                         </div>
                                     </div>
                                 </div>
-                            @endfor
-
+                            </div>
+                            @empty
+                                <div class="col-md-12">
+                                    <h2>Aun no hay productos</h2>
+                                </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
