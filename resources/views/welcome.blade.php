@@ -6,7 +6,7 @@
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
-                @forelse($sliders as $slider)
+                @forelse($allProducts['sliders'] as $slider)
                     <li data-target="#carousel-example-generic" data-slide-to="{{ $loop->index }}" class="{{ $isActive = ($loop->index == 0) ? 'active' : '' }}"></li>
                 @empty
                     <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -15,7 +15,7 @@
 
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
-                @forelse($sliders as $slider)
+                @forelse($allProducts['sliders'] as $slider)
                     <div class="{{ $isActive = ($loop->iteration == 1) ? 'item active' : 'item' }}">
                         {{ Html::image('/media/img-slider/'.$slider->img, "Imagen no encontrada", ['title' => $slider->nombre]) }}
                         <div class="carousel-caption">
@@ -47,34 +47,60 @@
 
         <div class="row" style="margin-top: 15px;">
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="row" style="padding: 10px;">
-                            <div class="page-header">
-                                <h2>Ofertas</h2>
-                            </div>
-                            <div class="ofertas">
 
-                                <p>Ofertas</p>
-
-                            </div>
 
                             <div class="page-header">
                                 <h2>Categorias</h2>
                             </div>
                             <div class="categorias">
 
-                                <p>Categorias</p>
-
+                                @foreach($allProducts['categorias'] as $categoria)
+                                    <span class="label label-default">{{ $categoria }}</span>
+                                @endforeach
                             </div>
 
+                            <div class="page-header">
+                                <h2>Ofertas</h2>
+                            </div>
+                            <div class="ofertas row">
+
+                                    @forelse($allProducts['ofertas'] as $producto)
+                                        <div class="col-md-10">
+                                            <div class="thumbnail" style="border: 1px solid;">
+                                                {{ Html::image('/media/img-producto/' .$producto->img, "Imagen no encontrada", ['title' => $producto->nombre, 'style' => 'border: 1px solid; height: 90px; width: 50px;']) }}
+                                                <div class="caption" style="border: 1px solid;">
+                                                    <h4>{{ $producto->nombre }}</h4>
+                                                    <p>
+                                                    <ul>
+                                                        <li>Precio: ${{ $producto->precio }}</li>
+                                                        <li>Categoria: {{ $producto->categoria }}</li>
+                                                        <li>Cantidad: {{ $producto->cantidad }}</li>
+                                                    </ul>
+                                                    </p>
+                                                    <hr/>
+                                                    <div class="btn-group">
+                                                        <a class="btn btn-default btn-editSlider" data-toggle="modal" data-target="#modalEdit">Ver</a>
+                                                        <a class="btn btn-info" role="button">Favoritos</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @empty
+                                        <div class="col-md-12">
+                                            <h2>Aun no hay productos</h2>
+                                        </div>
+                                    @endforelse
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-8">
+            <div class="col-md-9">
 
                 <div class="panel panel-default">
                     <div class="panel-body">
@@ -85,7 +111,7 @@
 
                         <div class="row" style="padding: 10px;">
 
-                            @forelse($productos as $producto)
+                            @forelse($allProducts['productos'] as $producto)
                             <div class="col-sm-6 col-md-4">
                                 <div class="thumbnail" style="border: 1px solid;">
                                     {{ Html::image('/media/img-producto/' .$producto->img, "Imagen no encontrada", ['title' => $producto->nombre, 'style' => 'border: 1px solid; height: 210px; width: 100%;']) }}
