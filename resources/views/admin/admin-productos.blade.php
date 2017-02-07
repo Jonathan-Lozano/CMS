@@ -1,5 +1,4 @@
 @extends('admin.layout.admin-mater-page')
-
 @section('content')
     <div class="page-header">
         <h1>Administración de <small>Productos</small></h1>
@@ -176,6 +175,7 @@
     </div>
 
 @endsection
+
 @section('extraScript')
     <script type="text/javascript" src="{{ asset('js/admin-producto.js') }}"></script>
 @show

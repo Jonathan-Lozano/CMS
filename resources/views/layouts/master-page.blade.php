@@ -16,6 +16,9 @@
 
     <link rel="stylesheet" href="fonts/glyphicons-halflings-regular.svg">
 
+    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+
     {{--@yield('extrastyle')--}}
 </head>
 <body>
@@ -91,9 +94,12 @@
         </nav>
 
         @yield('content')
+
     </div>
 
     <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('slick/slick.min.js') }}"></script>
+    @yield('extraScript')
 </body>
 </html>

@@ -1,5 +1,5 @@
 @extends('layouts.master-page')
-@include('layouts.style')
+
 @section('content')
     <div class="container">
 
@@ -66,12 +66,11 @@
                             <div class="page-header">
                                 <h2>Ofertas</h2>
                             </div>
-                            <div class="ofertas row">
-
+                            <div class="one-time ofertas row">
                                     @forelse($allProducts['ofertas'] as $producto)
-                                        <div class="col-md-10">
+                                        <div class="col-md-12">
                                             <div class="thumbnail" style="border: 1px solid;">
-                                                {{ Html::image('/media/img-producto/' .$producto->img, "Imagen no encontrada", ['title' => $producto->nombre, 'style' => 'border: 1px solid; height: 90px; width: 50px;']) }}
+                                                {{ Html::image('/media/img-producto/' .$producto->img, "Imagen no encontrada", ['title' => $producto->nombre, 'style' => 'border: 1px solid; height: 150px; width: 50px;']) }}
                                                 <div class="caption" style="border: 1px solid;">
                                                     <h4>{{ $producto->nombre }}</h4>
                                                     <p>
@@ -144,6 +143,20 @@
             </div>
 
         </div>
-
     </div>
 @endsection
+
+@section('extraScript')
+
+    <script type="text/javascript">
+
+        $('.one-time').slick({
+            dots: true,
+            infinite: true,
+            speed: 300,
+            slidesToShow: 1,
+            adaptiveHeight: true
+        });
+
+    </script>
+@show
